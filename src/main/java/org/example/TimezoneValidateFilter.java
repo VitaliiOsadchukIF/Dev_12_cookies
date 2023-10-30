@@ -20,7 +20,7 @@ public class TimezoneValidateFilter implements javax.servlet.Filter {
         // Отримуємо параметр timezone з запиту
         String timezone = req.getParameter("timezone");
 
-        if (timezone != null && TimeZone.getTimeZone(timezone).getID().equals("GMT")) {
+        if (timezone != null && TimeZone.getTimeZone(timezone).getID().equals("UTC")) {
             // Якщо переданий некоректний часовий пояс, то повертаємо помилку 400 і сторінку з повідомленням про помилку
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().println("<html><body><h1>Invalid timezone</h1></body></html>");
