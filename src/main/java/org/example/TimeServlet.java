@@ -26,7 +26,7 @@ public class TimeServlet extends HttpServlet {
         // Створюємо об'єкт шаблонного двигуна Thymeleaf.
 
         FileTemplateResolver resolver = new FileTemplateResolver();
-        resolver.setPrefix("C:\\Диск D\\java\\Clon_Dev_11_Servlet\\src\\main\\resources\\templates\\");
+        resolver.setPrefix("C:\\D\\src\\main\\resources\\templates\\");
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML5");
         resolver.setOrder(templateEngine.getTemplateResolvers().size());
@@ -52,7 +52,13 @@ public class TimeServlet extends HttpServlet {
             if (timezone == null) {
                 timezone = "UTC";
             }
+        } else {
+            // Якщо часовий пояс передано в запиті, то зберігаємо його у Cookie
+            Cookie timezoneCookie = new Cookie("lastTimezone", timezone);
+            timezoneCookie.setMaxAge(60 * 60 * 24 * 30); // Тривалість Cookie в секундах (наприклад, на місяць)
+            resp.addCookie(timezoneCookie);
         }
+
 
         try {
             // Отримуємо поточний час в заданому часовому поясі
